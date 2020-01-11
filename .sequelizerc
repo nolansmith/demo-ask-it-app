@@ -1,0 +1,8 @@
+// Set default configuration for Sequelize
+const path = require('path');
+module.exports = {
+  config: path.resolve(__dirname, './src/server/services/database/config/index.js'),
+  'migrations-path': './src/server/services/database/migrations',
+  'models-path': './src/server/services/database/models',
+  'seeders-path': './src/server/services/database/seeders'
+};
