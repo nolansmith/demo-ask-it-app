@@ -24,7 +24,7 @@ module.exports = {
     historyApiFallback: true,
     disableHostCheck: true,
     headers: { "Access-Control-Allow-Origin": "*" },
-    https: false
+    https: true
   },
   plugins: [
     new html({

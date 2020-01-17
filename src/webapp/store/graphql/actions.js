@@ -1,3 +1,9 @@
+/**
+ * Original implementation of GraphQL and Redux
+ * Current implementation uses GraphQL/Apollo Hooks inside of each component instead
+ * NOTE: This is technical debt at this point but can be revisited if you'd like
+ */
+
 import * as queries from './queries';
 import * as mutations from './mutations';
 import colors from 'colors';

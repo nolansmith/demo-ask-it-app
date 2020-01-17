@@ -4,10 +4,7 @@ var app = express();
 app.disable('x-powered-by');
 let services = require("./services/index.js");
 
-/* for our https certificate */
-const https = require("https");
-const fs = require("fs");
-
+/* utilities to pass down through our application */
 let utils = {
   db: services.db
 };
@@ -29,17 +26,16 @@ if (process.env.IS_ALSO_GRAPHQL && process.env.IS_ALSO_GRAPHQL === "yes") {
 const rootDir = path.resolve(__dirname, "../../build");
 app.use("/", express.static(rootDir));
 
-var port = process.env.PORT || 80;
+var httpPort = process.env.HTTP || 80;
+var httpsPort = process.env.HTTPS || 443;
 
-app.get("/*", function(req, res) {
+app.get("/*", function (req, res) {
   res.sendFile(rootDir + "/index.html");
 });
 
-app.listen(port, () => console.log(`[+] WebServer started on port ${port}`));
+app.listen(httpPort, () => console.log(`[+] HTTP WebServer started on port ${httpPort}`));
 
-/* setup for https (self-signed certificate) */
-// https.createServer({
-//     key: fs.readFileSync(path.resolve(__dirname, '../../server-key.pem')),
-//     cert: fs.readFileSync(path.resolve(__dirname, '../../server-cert.pem'))
-//   }, app)
-//   .listen(port, () => console.log(`[+] WebServer started on port ${port}`));
+/* listen with https service */
+services.https(app).listen(httpsPort, () => console.log(`[+] HTTPS WebServer started on port ${httpsPort}`));
+
+

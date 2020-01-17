@@ -21,10 +21,9 @@ var port = process.env.GRAPHQL_PORT || 8001;
 
 /* Basically field all get requests and send back it's only a GraphQL server */
 app.get("/*", function(req,res) {
-   
     res.send("GraphQL Only :-)")
 });
 
 
-
-app.listen(port, () => console.log(`[+] GraphQL server started on port ${port}`));
+/* Serve graphql over https */
+services.https(app).listen(port, () => console.log(`[+] GraphQL server started on port ${port}`));

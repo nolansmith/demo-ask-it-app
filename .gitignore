@@ -7,3 +7,6 @@ nohup.out
 .rdsconfig
 *.pem
 Procfile
+*.cert
+*.rnd
+*.key
