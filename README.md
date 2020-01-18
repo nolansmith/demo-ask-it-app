@@ -24,7 +24,9 @@ There's also quite a few security concerns you'd have to address if you ever too
 ### Copy .exampleenv to .env
 `cp .exampleenv .env`
 ### Modify .env File
-`Definitely change the MYSQL variables to match your credentials, others you can leave alone`
+`Definitely change the MYSQL variables to match your credentials, you may need to modify the HTTP/HTTPS ports due to permissions`
+### Generate SSL Certificate
+You'll need to put your key and your cert in `src/server/services/https` directory
 
 ## Database
 

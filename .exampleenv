@@ -5,6 +5,6 @@ MYSQL_DB=ask_db
 HTTP=80
 HTTPS=443
 GRAPHQL_PRODUCTION_URL=https://localhost/graphql
-GRAPHQL_DEVELOPMENT_URL=https://localhost:8001/graphql
+GRAPHQL_DEVELOPMENT_URL=http://localhost:8001/graphql
 IS_ALSO_GRAPHQL=yes
 GRAPHQL_PLAYGROUND=yes

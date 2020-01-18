@@ -22,7 +22,7 @@ function Dashboard(props) {
   useEffect(() => {
     handleLoggedIn(user.authenticated);
     setLoad(NOT_LOADING);
-  });
+  },[user]);
 
   if (isLoading.status)
     return (

@@ -1,6 +1,6 @@
-import React, { useEffect} from "react";
+import React, { useEffect, useState} from "react";
 import Loading from '../loading/';
-//import Question from './GQ_Question';
+import Error from '../error';
 import ShortQuestion from './ShortQuestion';
 import { connect } from "react-redux";
 import {useQuery} from '@apollo/react-hooks';
@@ -10,12 +10,12 @@ import {GET_ALL_QUESTIONS} from '../../store/graphql/queries';
 
 function AllQuestions(props) {
 
-
+  
   const {loading,error,data, networkStatus} = useQuery(GET_ALL_QUESTIONS, {
     pollInterval: 500, 
     onCompleted: (data) => {
       //console.log('GraphQL: ', data);
-      props.updateQuestions({all: data.questions})
+      //props.updateQuestions({all: data.questions})
       
     },
   });
@@ -25,7 +25,8 @@ function AllQuestions(props) {
  
   if (networkStatus === 6) console.log('Apollo Polling...');
   
-  //let questions = props.questions.all;
+ 
+  if (error) return <Error message="Server Error" />;
   let {questions} = data;
 
  

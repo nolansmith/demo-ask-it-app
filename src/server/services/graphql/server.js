@@ -25,5 +25,5 @@ app.get("/*", function(req,res) {
 });
 
 
-/* Serve graphql over https */
-services.https(app).listen(port, () => console.log(`[+] GraphQL server started on port ${port}`));
+/* Serve graphql over http, will be https in production */
+app.listen(port, () => console.log(`[+] GraphQL server started on port ${port}`));

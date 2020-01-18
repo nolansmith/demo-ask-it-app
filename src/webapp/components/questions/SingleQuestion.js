@@ -1,5 +1,5 @@
 import React from "react";
-import Question from '../questions/GQ_Question';
+import Question from './Question';
 import * as URLS from '../../util/urls.js';
 import Error from '../error/index.js';
 import Loading from '../loading/index.js';
@@ -12,6 +12,7 @@ function SingleQuestion(props) {
 
   const { loading, data, error, refetch } = useQuery(GET_SINGLE_QUESTION(parseInt(props.match.params.slug)));
   if (loading) return <Loading message="Finding Question" />;
+  if (error) return <Error message="Server Error" />;
   if (!data.findQuestionById) return <Error message="Cannot find question" />;
   let singleQuestion = data.findQuestionById;
 

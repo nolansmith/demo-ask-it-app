@@ -30,13 +30,17 @@ const SignUp = props => {
 
     //GraphQL query
     const queryUserObject = useQuery(FIND_USER, { variables: { username: username } });
+    
 
     //GraphQL user creating mutation
     const [createNewUser, newUserObject] = useMutation(CREATE_NEW_USER);
+    
 
     if (isLoading.status) return <Loading message={isLoading.message} image="searching" maxHeight="200px" />;
     if (isError.status) return <Error message={isError.message} image="found" maxHeight='200px' />;
     if (userCreated) return <Message text="Congrats" image="success">{userCreatedSuccess(userCreated.username)}</Message>
+    if (queryUserObject.error) return <Error message="Server Error" />;
+    if (newUserObject.error) return <Error message="Server Error" />;
 
 
     function handleSubmit(e) {

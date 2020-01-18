@@ -6,6 +6,7 @@ import * as actions from '../../store/graphql/actions';
 import {GET_LATEST_QUESTIONS} from '../../store/graphql/queries';
 import {useQuery} from '@apollo/react-hooks';
 import Loading from '../loading';
+import Error from '../error';
 
 
 function LatestQuestions (props) {
@@ -14,6 +15,7 @@ function LatestQuestions (props) {
 
   const {loading,data,error} = useQuery(GET_LATEST_QUESTIONS, {pollInterval: 500});
   if (loading) return <Loading message="Getting Latest Questions..." />;
+  if (error) return <Error message="Server Error" />;
   /* Get the last 5 questions */
   let questions = data.getLatestQuestions;
   
