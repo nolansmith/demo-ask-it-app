@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { NavLink as Link } from "react-router-dom";
-import { FaPhone as Phone, FaAsterisk as Password, FaUser as User } from "react-icons/fa";
-
+import {
+  FaPhone as Phone,
+  FaAsterisk as Password,
+  FaUser as User
+} from "react-icons/fa";
+import client from "../../config/apollo/index.js";
 import * as URLS from "../../util/urls";
 import Loading from "../loading";
 import Message from "../message";
@@ -34,12 +38,10 @@ const login = props => {
   const findUserObject = useQuery(FIND_USER, {
     variables: { username: username }
   });
-  //GraphQL query to verify user
-  const verifyUserObject = useQuery(VERIFY_USER, {
-    variables: { username: username, password: password }
-  });
-
-
+  // //GraphQL query to verify user
+  // const verifyUserObject = useQuery(VERIFY_USER, {
+  //   variables: { username: username, password: password }
+  // });
 
   if (isLoading.status)
     return (
@@ -65,9 +67,9 @@ const login = props => {
     //console.log('handling submit...');
     //props.addNewUser({ username, phone });
     verifyUser(username);
-    handleUsername("");
-    handlePassword("");
-    e.target.reset();
+    // handleUsername("");
+    // handlePassword("");
+    // e.target.reset();
   }
 
   function userLoginSuccess(username) {
@@ -89,10 +91,10 @@ const login = props => {
             </Link>
           </h4>
         ) : (
-            <h4 style={{ width: "100%", textAlign: "center", margin: "0 auto" }}>
-              Go To Dashboard <Link to={`/`}>here</Link>
-            </h4>
-          )}
+          <h4 style={{ width: "100%", textAlign: "center", margin: "0 auto" }}>
+            Go To Dashboard <Link to={`/`}>here</Link>
+          </h4>
+        )}
       </div>
     );
   }
@@ -103,35 +105,40 @@ const login = props => {
     let { data } = findUserObject;
 
     setTimeout(() => {
-
       if (!data.findUserByUsername) {
         setError({ status: true, message: "User not found!" });
         setLoad(NOT_LOADING);
         setTimeout(() => setError(NO_ERROR), 2000);
         return;
       } else {
-        let v = verifyUserObject;
-        if (!v.data.verifyUser) {
-          setError({ status: true, message: "Bad password!" });
-          setLoad(NOT_LOADING);
-          setTimeout(() => setError(NO_ERROR), 2000);
-          return;
-        } else {
-          let u = data.findUserByUsername;
-         
-          props.loginUser({
-            id: u.id,
-            username: u.username,
-            authenticated: true,
-            votes: u.votes,
-            answers: u.answers
+        //initiate user verification
+        client
+          .query({
+            query: VERIFY_USER,
+            variables: { username: username, password: password }
+          })
+          .then((user) => {
+            if (!user.data.verifyUser) {
+              setError({ status: true, message: "Bad password!" });
+              setLoad(NOT_LOADING);
+              setTimeout(() => setError(NO_ERROR), 2000);
+              return;
+            } else {
+              let u = data.findUserByUsername;
+
+              props.loginUser({
+                id: u.id,
+                username: u.username,
+                authenticated: true,
+                votes: u.votes,
+                answers: u.answers
+              });
+              handleLoggedIn(true);
+              setLoad(NOT_LOADING);
+            }
           });
-          handleLoggedIn(true);
-          setLoad(NOT_LOADING);
-        }
       }
     }, 2000);
-
   };
 
   const readyToSubmit = () => {
@@ -225,8 +232,6 @@ const login = props => {
     </div>
   );
 };
-
-
 
 const mapStateToProps = state => {
   return {

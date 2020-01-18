@@ -1,12 +1,16 @@
 /** 
  * GraphQL Resolvers
  */
+
+import bcrypt from 'bcryptjs';
+
 export default function resolver(utils) {
     
     /* Where we get our models from, the database service */
     const { User, Answer, Question, Vote } = utils.db.models;
 
     const resolvers = {
+
 
         RootQuery: {
             
@@ -78,9 +82,14 @@ export default function resolver(utils) {
             verifyUser(root,{ username, password}, context) {
                     return User.findOne({
                         where: {
-                            username: username,
-                            password: password
+                            username: username
                         }
+                    }).then(async (user) => {
+                        //console.log('Password: ', password, ' DB Password: ', user.password);
+                        let validPassword = await bcrypt.compare(password, user.password);
+                        if (!validPassword) return null;
+                        return user;
+
                     })
             },
 
@@ -213,7 +222,12 @@ export default function resolver(utils) {
              * @param {*} context 
              */
             createNewUser(root, {user}, context) {
-                return User.create(user);
+                let newUser = {...user};
+                return bcrypt.hash(newUser.password, 10).then((hash) => {
+                    newUser.password = hash;
+                    return User.create(newUser);
+                }).catch(err => null)
+                
             }
 
 
