@@ -24,13 +24,14 @@ There's also quite a few security concerns you'd have to address if you ever too
 ### Copy .exampleenv to .env
 `cp .exampleenv .env`
 ### Modify .env File
-Change the `MYSQL_*` variables to match your database credentials, 
-Change `HTTP` and `HTTPS` if your permissions don't allow those ports
-If not using HTTPS make sure to set `USING_HTTPS=no` and `GRAPHQL_PRODUCTION_URL` is prefixed with `http://`
-Set `JWT_SECRET` to a custom 128 character string to use with JSON Web Tokens
+- Change the `MYSQL_*` variables to match your database credentials, 
+- Change `HTTP` and `HTTPS` if your permissions don't allow those ports
+- If not using HTTPS make sure to set `USING_HTTPS=no` and `GRAPHQL_PRODUCTION_URL` is prefixed with `http://`
+- Set `JWT_SECRET` to a custom 128 character string to use with JSON Web Tokens (or use the one provided for testing)
 ### Using HTTPS
-Make sure `USING_HTTPS=yes` is in your `.env` file and `GRAPHQL_PRODUCTION_URL` is prefixed with `https://`
-You'll need generate a certificate and put the key and your cert in `src/server/services/https` directory
+- Make sure `USING_HTTPS=yes` is in your `.env` file
+- `GRAPHQL_PRODUCTION_URL` is prefixed with `https://`
+- You'll need to generate a certificate and put the key and your cert in `src/server/services/https` directory
 
 ## Database
 
