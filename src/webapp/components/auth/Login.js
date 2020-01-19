@@ -124,14 +124,17 @@ const login = props => {
               setTimeout(() => setError(NO_ERROR), 2000);
               return;
             } else {
-              let u = data.findUserByUsername;
-
+              //authorized user, give us a token, id, username back
+              //more importantly a token
+              let authedUser = user.data.verifyUser;
+              //now get the votes,answers,and, questions
+              let {votes,answers,questions} = data.findUserByUsername;
+              let userActivities = Object.assign({}, {votes,answers,questions});
+              //trigger the prop change after logging in
               props.loginUser({
-                id: u.id,
-                username: u.username,
-                authenticated: true,
-                votes: u.votes,
-                answers: u.answers
+                ...authedUser,
+                ...userActivities,
+                authenticated: true
               });
               handleLoggedIn(true);
               setLoad(NOT_LOADING);

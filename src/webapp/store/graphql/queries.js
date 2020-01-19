@@ -77,7 +77,8 @@ export const VERIFY_USER = gql`
 query VerifyUser($username: String, $password: String) {
   verifyUser(username: $username, password: $password) {
     id,
-    username
+    username,
+    token
   }
 }
 

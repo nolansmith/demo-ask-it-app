@@ -21,7 +21,7 @@ export default (utils) => {
     const server = new ApolloServer({
         schema: theSchema,
         context: ({req}) => req,
-        playground: true
+        playground: process.env.NODE_ENV === 'production' ? false : true
     });
 
     return server;

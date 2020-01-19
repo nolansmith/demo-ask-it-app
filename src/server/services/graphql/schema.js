@@ -51,6 +51,7 @@ type Vote {
     
 }
 
+
 input VoteInput {
     action: String,
     UserId: String,
@@ -69,6 +70,13 @@ type User {
     votes: [Vote],
 }
 
+
+type AuthedUser {
+    
+    id: String,
+    username: String,
+    token: String,
+}
 input UserInput {
     id: String,
     password: String,
@@ -81,9 +89,10 @@ type RootQuery {
     answers: [Answer],
     users: [User],
     findUserByUsername(username: String): User,
+   
     findQuestionById(id: Int!): Question,
     getLatestQuestions: [Question],
-    verifyUser(username: String, password: String): User,
+    verifyUser(username: String, password: String): AuthedUser,
    
 }
 

@@ -3,6 +3,7 @@
  */
 
 import bcrypt from 'bcryptjs';
+import JWT from 'jsonwebtoken';
 
 export default function resolver(utils) {
     
@@ -79,6 +80,8 @@ export default function resolver(utils) {
                 })
             },
 
+        
+
             verifyUser(root,{ username, password}, context) {
                     return User.findOne({
                         where: {
@@ -88,7 +91,17 @@ export default function resolver(utils) {
                         //console.log('Password: ', password, ' DB Password: ', user.password);
                         let validPassword = await bcrypt.compare(password, user.password);
                         if (!validPassword) return null;
-                        return user;
+                        let {id, username} = user;
+                        let token = JWT.sign({username, id}, process.env.JWT_SECRET, {
+                            expiresIn: '1d'
+                        });
+                        
+                        return ({
+                            token,
+                            id,
+                            username
+                           
+                        });
 
                     })
             },
