@@ -124,6 +124,7 @@ const login = props => {
               setTimeout(() => setError(NO_ERROR), 2000);
               return;
             } else {
+             
               //authorized user, give us a token, id, username back
               //more importantly a token
               let authedUser = user.data.verifyUser;

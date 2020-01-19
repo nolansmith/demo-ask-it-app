@@ -5,6 +5,8 @@ In this file, we will define the schema or typeDefs for graphQL
 */
 const typeDefs = `
 
+directive @auth on QUERY | FIELD_DEFINITION | FIELD
+
 type Question { 
     UserId: String,
     id: Int,
@@ -85,7 +87,7 @@ input UserInput {
 
 
 type RootQuery {
-    questions: [Question],
+    questions: [Question] ,
     answers: [Answer],
     users: [User],
     findUserByUsername(username: String): User,
@@ -97,9 +99,9 @@ type RootQuery {
 }
 
 type RootMutation {
-    addVote(vote: VoteInput): Vote,
-    askQuestion(question: QuestionInput): Question,
-    answerQuestion(answer: AnswerInput): Answer,
+    addVote(vote: VoteInput): Vote @auth,
+    askQuestion(question: QuestionInput): Question @auth,
+    answerQuestion(answer: AnswerInput): Answer @auth,
     createNewUser(user: UserInput): User,
 }
 

@@ -26,7 +26,10 @@ function AllQuestions(props) {
   if (networkStatus === 6) console.log('Apollo Polling...');
   
  
-  if (error) return <Error message="Server Error" />;
+  if (error) {
+    
+    return <Error message="Server Error" />
+    };
   let {questions} = data;
 
  

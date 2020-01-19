@@ -24,14 +24,21 @@ There's also quite a few security concerns you'd have to address if you ever too
 ### Copy .exampleenv to .env
 `cp .exampleenv .env`
 ### Modify .env File
-`Definitely change the MYSQL variables to match your credentials, you may need to modify the HTTP/HTTPS ports due to permissions`
-### Generate SSL Certificate
-You'll need to put your key and your cert in `src/server/services/https` directory
+Change the `MYSQL_*` variables to match your database credentials, 
+Change `HTTP` and `HTTPS` if your permissions don't allow those ports
+If not using HTTPS make sure to set `USING_HTTPS=no` and `GRAPHQL_PRODUCTION_URL` is prefixed with `http://`
+Set `JWT_SECRET` to a custom 128 character string to use with JSON Web Tokens
+### Using HTTPS
+Make sure `USING_HTTPS=yes` is in your `.env` file and `GRAPHQL_PRODUCTION_URL` is prefixed with `https://`
+You'll need generate a certificate and put the key and your cert in `src/server/services/https` directory
 
 ## Database
 
-### Set Up Database (create tables, seed fake data)
+### Set Up Database (create tables)
 `npm run migrate`
+
+### Seed Fake Data (optional)
+`npm run seed`
 
 ### Undo Database Set Up (remove all data, if you want fresh start)
 `npm run rollback`
