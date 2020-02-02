@@ -3,6 +3,7 @@ import {
   AuthenticationError
 } from "apollo-server-express";
 
+import regeneratorRuntime from 'regenerator-runtime/runtime';
 
 class AuthDirective extends SchemaDirectiveVisitor {
   visitFieldDefinition(field) {

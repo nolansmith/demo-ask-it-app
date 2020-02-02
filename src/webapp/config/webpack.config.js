@@ -3,7 +3,7 @@ const html = require("html-webpack-plugin");
 const clean = require("clean-webpack-plugin").CleanWebpackPlugin;
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const path = require("path");
-const buildDir = path.resolve(__dirname, "../../../build");
+const buildDir = path.resolve(__dirname, "../../../prod/webapp");
 const WebpackBar = require("webpackbar");
 const DotEnv = require("dotenv-webpack");
 
@@ -39,7 +39,7 @@ module.exports = {
       {
         from: path.resolve(__dirname, "../fonts"),
         to: "fonts"
-      }
+      },
     ]),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     new webpack.optimize.ModuleConcatenationPlugin(),

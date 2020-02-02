@@ -6,6 +6,6 @@ const models = require('./models/index.js');
 
 
 module.exports =  {
-    models: models(sequelize),
+    models,
     sequelize,
 }

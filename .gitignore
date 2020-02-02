@@ -10,3 +10,4 @@ Procfile
 *.cert
 *.rnd
 *.key
+prod

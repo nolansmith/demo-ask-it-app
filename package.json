@@ -8,13 +8,16 @@
     "seed": "sequelize db:seed:all",
     "rollback": "sequelize db:migrate:undo:all",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "pack": "webpack --config ./src/webapp/config/webpack.config.js",
-    "start:prod": "npm run pack && npm run server",
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "webpack --config ./src/webapp/config/webpack.config.js ",
+    "build:server": "babel ./src/server --out-dir ./prod/server --plugins=@babel/plugin-transform-regenerator --minified",
+    "start": "npm run server",
+    "start:prod": "npm run build && npm run server",
     "start:dev": "concurrently \"npm run graphql\" \"webpack-dev-server --config ./src/webapp/config/webpack.dev.config.js --port 8080\"",
     "profile": "webpack --profile --json --config ./src/webapp/config/webpack.config.js > stats.json",
     "analyzer": "webpack-bundle-analyzer stats.json",
-    "graphql": "cross-env NODE_ENV=development nodemon --plugins require-context-hook --exec babel-node --watch ./src/server/services/graphql ./src/server/services/graphql/server.js",
-    "server": "cross-env NODE_ENV=production nodemon --plugins require-context-hook --exec babel-node --watch ./src/server ./src/server/index.js"
+    "graphql": "cross-env NODE_ENV=development nodemon --exec babel-node --watch ./src/server/services/graphql ./src/server/services/graphql/server.js",
+    "server": "cross-env NODE_ENV=production node ./prod/server/index.js"
   },
   "keywords": [],
   "author": "",
@@ -36,6 +39,7 @@
     "compression": "^1.7.4",
     "core-js": "^3.6.4",
     "cors": "^2.8.5",
+    "cross-env": "^6.0.3",
     "express": "^4.17.1",
     "graphql": "^14.5.3",
     "graphql-cli": "^3.0.14",
@@ -46,6 +50,7 @@
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "mysql2": "^2.1.0",
+    "nodemon": "^2.0.2",
     "node-fetch": "^2.6.0",
     "popper.js": "^1.16.0",
     "react": "^16.12.0",
@@ -59,12 +64,13 @@
     "redux-thunk": "^2.3.0",
     "sequelize": "^5.21.3",
     "sequelize-cli": "^5.5.1",
-    "stripe": "^7.15.0",
     "uuid": "^3.4.0"
   },
   "devDependencies": {
-    "@babel/core": "7.3.4",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.3.4",
     "@babel/node": "^7.8.3",
+    "@babel/plugin-transform-regenerator": "^7.8.3",
     "@babel/polyfill": "^7.8.3",
     "@babel/preset-env": "^7.8.3",
     "@babel/preset-react": "^7.8.3",
@@ -74,12 +80,11 @@
     "clean-webpack-plugin": "^3.0.0",
     "concurrently": "^5.0.2",
     "copy-webpack-plugin": "^5.1.1",
-    "cross-env": "^6.0.3",
     "css-loader": "^3.4.2",
     "dotenv": "^8.2.0",
     "dotenv-webpack": "^1.7.0",
     "html-webpack-plugin": "3.2.0",
-    "nodemon": "^2.0.2",
+    "regenerator-runtime": "^0.13.3",
     "style-loader": "^0.23.1",
     "webpack": "^4.41.5",
     "webpack-bundle-analyzer": "^3.6.0",
@@ -98,5 +103,6 @@
       ],
       "@babel/preset-react"
     ]
-  }
+  },
+  "heroku-run-build-script": true
 }
