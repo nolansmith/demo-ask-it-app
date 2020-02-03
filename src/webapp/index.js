@@ -48,7 +48,7 @@ const Main = React.lazy(() =>
 );
 
 const App = function(props) {
-  return <Router>{props.children}</Router>;
+  return <Router onUpdate={() => window.scrollTo(0,0)}>{props.children}</Router>;
 };
 
 render(

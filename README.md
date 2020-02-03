@@ -44,12 +44,23 @@ There's also quite a few security concerns you'd have to address if you ever too
 ### Undo Database Set Up (remove all data, if you want fresh start)
 `npm run rollback`
 
-## Application
+## Deployment
 
-### Development (run this while you're coding, port 8080)
+### Local
+- If deploying locally and using .env for config variables, npm server script in `package.json` should be:
+`"server": "cross-env DEPLOYMENT_HAS_VARS=no NODE_ENV=production node ./prod/server/index.js"`
+
+### Remote
+- If deploying remotely and the service will hold the config variables, like mine on Heroku, npm server script in `package.json` should be:
+`"server": "cross-env DEPLOYMENT_HAS_VARS=yes NODE_ENV=production node ./prod/server/index.js"`
+- Note: this project is set up for a deployment to Heroku, you may have to alter "start" and "build" scripts
+
+## Starting
+
+### Development (run this while you're coding, port 8080 by default)
 `npm run start:dev`
 
-### Production (run this when you're done coding, port 3000)
+### Production (run this when you're done coding, port 3000 by default)
 `npm run start:prod`
 
 ## ToDo (some ideas)

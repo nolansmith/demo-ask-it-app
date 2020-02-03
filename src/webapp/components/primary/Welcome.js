@@ -3,6 +3,7 @@ import { NavLink as Link } from "react-router-dom";
 import URLS from "../../util/urls.js";
 import {connect} from 'react-redux';
 import * as gql from '../../store/graphql/actions.js';
+import LatestQuestions from '../questions/LatestQuestions';
 
 const Welcome = (props) => {
   useEffect(() => {
@@ -63,6 +64,7 @@ const Welcome = (props) => {
           <Link to="/latest">
             <button className={"aw-btn"}>See Latest Questions</button>
           </Link>
+          <LatestQuestions />
         </div>
       </div>
 

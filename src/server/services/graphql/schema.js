@@ -1,4 +1,4 @@
-/* 
+/*
 
 In this file, we will define the schema or typeDefs for graphQL
 

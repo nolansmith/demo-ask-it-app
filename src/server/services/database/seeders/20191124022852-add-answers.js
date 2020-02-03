@@ -1,11 +1,8 @@
-'use strict';
 
 const answers = require('../util/answers.js');
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Answers', answers);
-    /*
+  up: (queryInterface, Sequelize) => queryInterface.bulkInsert('Answers', answers), /*
       Add altering commands here.
       Return a promise to correctly handle asynchronicity.
 
@@ -15,16 +12,15 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
-  },
 
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('Answers', null, {});
-    /*
+
+  down: (queryInterface, Sequelize) => queryInterface.bulkDelete('Answers', null, {}),
+  /*
       Add reverting commands here.
       Return a promise to correctly handle asynchronicity.
 
       Example:
       return queryInterface.bulkDelete('People', null, {});
     */
-  }
+
 };

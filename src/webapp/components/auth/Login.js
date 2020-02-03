@@ -38,10 +38,7 @@ const login = props => {
   const findUserObject = useQuery(FIND_USER, {
     variables: { username: username }
   });
-  // //GraphQL query to verify user
-  // const verifyUserObject = useQuery(VERIFY_USER, {
-  //   variables: { username: username, password: password }
-  // });
+ 
 
   if (isLoading.status)
     return (
@@ -64,12 +61,9 @@ const login = props => {
   function handleSubmit(e) {
     e.preventDefault();
 
-    //console.log('handling submit...');
-    //props.addNewUser({ username, phone });
     verifyUser(username);
-    // handleUsername("");
-    // handlePassword("");
-    // e.target.reset();
+    handleUsername("");
+    handlePassword("");
   }
 
   function userLoginSuccess(username) {
@@ -117,20 +111,22 @@ const login = props => {
             query: VERIFY_USER,
             variables: { username: username, password: password }
           })
-          .then((user) => {
+          .then(user => {
             if (!user.data.verifyUser) {
               setError({ status: true, message: "Bad password!" });
               setLoad(NOT_LOADING);
               setTimeout(() => setError(NO_ERROR), 2000);
               return;
             } else {
-             
               //authorized user, give us a token, id, username back
               //more importantly a token
               let authedUser = user.data.verifyUser;
               //now get the votes,answers,and, questions
-              let {votes,answers,questions} = data.findUserByUsername;
-              let userActivities = Object.assign({}, {votes,answers,questions});
+              let { votes, answers, questions } = data.findUserByUsername;
+              let userActivities = Object.assign(
+                {},
+                { votes, answers, questions }
+              );
               //trigger the prop change after logging in
               props.loginUser({
                 ...authedUser,

@@ -1,22 +1,22 @@
-"use strict";
-const Question = require("./question");
-const Vote = require("./votes");
+
+const Question = require('./question');
+const Vote = require('./votes');
 
 module.exports = (sequelize, DataTypes) => {
   const user = sequelize.define(
-    "User",
+    'User',
     {
       username: {
         type: DataTypes.STRING,
-        unique: true
+        unique: true,
       },
-      password: DataTypes.STRING
+      password: DataTypes.STRING,
     },
-    {}
+    {},
   );
-  user.associate = function(models) {
+  user.associate = function (models) {
     // associations can be defined here
-    //console.log('Performing association ', models)
+    // console.log('Performing association ', models)
     user.hasMany(models.Question);
     user.hasMany(models.Answer);
     user.hasMany(models.Vote);

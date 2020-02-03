@@ -8,7 +8,7 @@ const https = require('./https/index.js');
 
 
 module.exports = {
-    db,
-    graphql,
-    https
-}
+  db,
+  graphql,
+  https,
+};

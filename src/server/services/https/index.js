@@ -1,16 +1,15 @@
-const https = require("https");
-const path = require("path");
-const fs = require("fs");
+const https = require('https');
+const path = require('path');
+const fs = require('fs');
 
-module.exports = app => {
+module.exports = (app) =>
   /* setup for https (self-signed certificate) */
-  return https.createServer(
+  https.createServer(
     {
-      key: fs.readFileSync(path.resolve(__dirname, "server.key")),
-      cert: fs.readFileSync(path.resolve(__dirname, "server.cert")),
+      key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
+      cert: fs.readFileSync(path.resolve(__dirname, 'server.cert')),
       requestCert: false,
-      rejectUnauthorized: false
+      rejectUnauthorized: false,
     },
-    app
+    app,
   );
-};

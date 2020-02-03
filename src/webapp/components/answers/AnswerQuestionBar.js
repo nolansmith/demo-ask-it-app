@@ -12,8 +12,7 @@ function AnswerQuestionBar(props)  {
   const [myAnswer, setAnswer] = useState("");
   const [valid, setValid] = useState(false);
   const [answerQuestion, {data}] = useMutation(ANSWER_QUESTION);
-  let stubUser = getRandomUserFromSeedData();
-  //graphql refetch from parent
+ 
   let {refetch} = props;
   
   function checkValid(value) {
@@ -33,7 +32,7 @@ function AnswerQuestionBar(props)  {
 
  function handleSubmit(e) {
     e.preventDefault();
-    let answer = {UserId: props.user.id || stubUser.id, QuestionId: props.qid, text: myAnswer};
+    let answer = {UserId: props.user.id, QuestionId: props.qid, text: myAnswer};
     answerQuestion({variables: {
       answer: answer
     }}).then((a) => {
@@ -48,7 +47,8 @@ function AnswerQuestionBar(props)  {
   }
 
 
-    return (!props.user.authenticated) ? <h4 style={{textAlign: 'center'}}><Link onClick={props.updateCallback} to="/login">Login</Link> to answer</h4> : (
+    return (!props.user.authenticated) ? <h4 style={{textAlign: 'center'}}>
+      <Link onClick={props.updateCallback} to="/login">Login</Link> to answer</h4> : (
       <div style={{ margin: "20px auto", width: "100%" }}>
         <div
           className="col-md-6 col-xs-10 form-group"

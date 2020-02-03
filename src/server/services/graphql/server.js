@@ -2,40 +2,36 @@
  * Standalone file if you want to run GraphQL server separately
  */
 
-var path = require('path');
-var express = require('express');
-var app = express();
-let services = require('../index.js');
+const path = require('path');
+const express = require('express');
+
+const app = express();
 const helmet = require('helmet');
+const services = require('../index.js');
 
 
-
-
-app.disable("x-powered-by");
-let utils = {
-    db: services.db
+app.disable('x-powered-by');
+const utils = {
+  db: services.db,
 };
 
 if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config({
-        path: path.resolve(__dirname, '../../../../.env')
-    })
+  require('dotenv').config({
+    path: path.resolve(__dirname, '../../../../.env'),
+  });
 }
 
 /* apply middleware to our express server, which is `app` */
-let graphql = services.graphql.default(utils);
+const graphql = services.graphql.default(utils);
 
-graphql.applyMiddleware({app})
+graphql.applyMiddleware({ app });
 
-var port = process.env.GRAPHQL_PORT || 8001;
-
-
+const port = process.env.GRAPHQL_PORT || 8001;
 
 
 /* Basically field all get requests and send back it's only a GraphQL server */
-app.get("/*", function(req,res) {
-    
-    res.send("GraphQL Only :-)")
+app.get('/*', (req, res) => {
+  res.send('GraphQL Only :-)');
 });
 
 
