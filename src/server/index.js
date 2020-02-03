@@ -53,7 +53,7 @@ if (process.env.IS_ALSO_GRAPHQL && process.env.IS_ALSO_GRAPHQL === "yes") {
 const rootDir = path.resolve(__dirname, "../../prod/webapp");
 app.use("/", express.static(rootDir));
 
-var httpPort = process.env.PORT || (process.env.HTTP) ? process.env.HTTP : 80;
+var httpPort = process.env.PORT || 3000;
 var httpsPort = process.env.HTTPS || 443;
 
 app.get("/*", function(req, res) {
