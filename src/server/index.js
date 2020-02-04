@@ -14,7 +14,8 @@ app.use(
     directives: {
       defaultSrc: ["'self'"],
       scriptSrc: ["'self'", "'unsafe-inline'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
+      styleSrc: ["'self'", "*.googleapis.com", "*.gstatic.com", "'unsafe-inline'"],
+      fontSrc: ["*.googleapis.com", "*.gstatic.com"],
       imgSrc: ["'self'", 'data:', '*.amazonaws.com'],
     },
   }),
