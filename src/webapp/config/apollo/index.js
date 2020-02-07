@@ -12,6 +12,7 @@ const AuthLink = (operation, next) => {
   //console.log('Inside of AuthLink...');
    
     if (user && user.token) {
+      //console.log('There is a user token...');
     operation.setContext(context => {
      
       return ({

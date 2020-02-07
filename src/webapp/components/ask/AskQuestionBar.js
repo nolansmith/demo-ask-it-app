@@ -26,7 +26,7 @@ function AskQuestionBar(props) {
     e.preventDefault();
 
     let question = {
-      UserId: user.id || stubUser.id,
+      UserId: user.id,
       text: myQuestion,
       createdAt: new Date(),
       updatedAt: new Date()

@@ -11,9 +11,7 @@ process.env.NODE_ENV = "production";
 
 module.exports = {
   mode: "production",
-  entry: {
-    main: path.resolve(__dirname, "../index.js")
-  },
+  entry: ["@babel/polyfill", path.resolve(__dirname, "../index.js")],
   node: { fs: "empty" },
   target: "web",
   output: {
@@ -39,7 +37,7 @@ module.exports = {
       {
         from: path.resolve(__dirname, "../fonts"),
         to: "fonts"
-      },
+      }
     ]),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     new webpack.optimize.ModuleConcatenationPlugin(),

@@ -11,11 +11,9 @@ import Loading from "../loading";
 import Error from "../error";
 
 function Response(props) {
-
   /** redux hooks */
   const dispatch = useDispatch();
   const userState = useSelector(state => state.user);
-
 
   /** vote mutation for GraphQL */
   const [addVote, addVoteData] = useMutation(ADD_VOTE);
@@ -38,7 +36,6 @@ function Response(props) {
   /* see if this answer is votable whether the user is either a.) logged in or b.) has voted on it or not */
   const canVoteOnThis = action => {
     if (userState.authenticated === true) {
-      
       //either user has voted on it or can vote on it
       if (
         userState.votes.filter(function(v) {
@@ -78,18 +75,13 @@ function Response(props) {
       //console.log('Vote returned: ', data.addVote);
       let newVotes = [...userState.votes];
       newVotes.push(data.addVote);
-      let updatedUser = Object.assign(
-        {},
-        { ...userState, votes: newVotes }
-      );
+      let updatedUser = Object.assign({}, { ...userState, votes: newVotes });
       dispatch(loginUser(updatedUser));
       //the response list refresh function
       props.refetch();
       //then the individual response refetch function
-    })
+    });
   }
-
-  
 
   return (
     <div
@@ -175,7 +167,12 @@ function Response(props) {
           <div>{text}</div>
           <div>
             <li>
-              <Link to={`/user/${user.username}`}>{user.username}</Link>
+              <Link
+                
+                to={`/user/${user.username}`}
+              >
+                {user.username}
+              </Link>
             </li>
           </div>
         </div>
@@ -183,22 +180,5 @@ function Response(props) {
     </div>
   );
 }
-
-// const mapStateToProps = state => {
-//   return {
-//     singleQuestion: state.singleQuestion,
-//     loading: state.loading,
-//     user: state.user
-//   };
-// };
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     loginUser: user => dispatch(loginUser(user)),
-//     setLoading: payload => dispatch(setLoading(payload))
-//   };
-// };
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Response);
 
 export default Response;

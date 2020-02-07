@@ -1,6 +1,6 @@
 //lets create an initial or mock state
 
-export const NOT_LOADING = { status: false, message: "" };
+import {NOT_LOADING, NO_ERROR} from './actions.js';
 
 export default {
   questions: {
@@ -9,11 +9,8 @@ export default {
     latest: [],
     asked: {}
   },
-  error: {
-    status: false,
-    message: "An error occurred..."
-  },
-  loading: NOT_LOADING,
+  error: {...NO_ERROR},
+  loading: {...NOT_LOADING},
   user: 
   JSON.parse(localStorage.getItem("_askitapp_user")) || {
     username: null,
@@ -25,5 +22,18 @@ export default {
     id: null,
     hasBeenLoggedOut: false
   },
-  callbackUrl: null
+  callbackUrl: null,
+  forms: {
+    login: {
+      username: "",
+      password: "",
+      submitted: false
+    },
+    signup: {
+      username: "",
+      password: "",
+      submitted: false,
+      created: false
+    }
+  }
 };

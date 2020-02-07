@@ -1,5 +1,29 @@
 import initialState from "./initialState";
 
+//some constants
+export const NOT_LOADING = { status: false, message: "" };
+export const NO_ERROR = { status: false, message: "" };
+
+export const setLoading = (message = "") => (dispatch, getState, context) => {
+  let status = true;
+  if (message === "") status = false;
+
+  dispatch({
+    type: "UPDATE_LOADING",
+    loading: { status: status, message: message }
+  });
+};
+
+export const setError = (message = "") => (dispatch, getState, context) => {
+  let status = true;
+  if (message === "") status = false;
+
+  dispatch({
+    type: "UPDATE_ERROR",
+    error: { status: status, message: message }
+  });
+};
+
 export const loginUser = user => (dispatch, getState, context) => {
   //console.log('DISPATCH FOR NEW USER: ', user);
   dispatch({ type: "UPDATE_USER", user });
@@ -27,14 +51,84 @@ export const updateCallbackUrl = (url = null) => (
   dispatch({ type: "CALLBACK_URL", url: url });
 };
 
-export const setLoading = (payload = { status: false, message: "" }) => (
+/**
+ * LOGIN FORM
+ */
+
+export const updateLoginFormPassword = password => (
   dispatch,
   getState,
   context
 ) => {
-  dispatch({
-    type: "UPDATE_LOAD_STATUS",
-    status: payload.status,
-    message: payload.message
-  });
+  dispatch({ type: "UPDATE_LOGIN_FORM_PASSWORD", password });
+};
+
+export const updateLoginFormUsername = username => (
+  dispatch,
+  getState,
+  context
+) => {
+  dispatch({ type: "UPDATE_LOGIN_FORM_USERNAME", username });
+};
+export const updateLoginFormSubmitted = status => (
+  dispatch,
+  getState,
+  context
+) => {
+  dispatch({ type: "UPDATE_LOGIN_FORM_SUBMITTED", status });
+};
+
+export const loginError = message => (dispatch, getState, context) => {
+  dispatch(setError(message));
+  dispatch(setLoading());
+  dispatch(updateLoginFormSubmitted(false));
+  dispatch(updateLoginFormPassword(""));
+  dispatch(updateLoginFormUsername(""));
+  setTimeout(() => {
+    dispatch(setError());
+  }, 2000);
+
+};
+
+export const updateSignupFormPassword = password => (
+  dispatch,
+  getState,
+  context
+) => {
+  dispatch({ type: "UPDATE_SIGNUP_FORM_PASSWORD", password });
+};
+
+export const updateSignupFormUsername = username => (
+  dispatch,
+  getState,
+  context
+) => {
+  dispatch({ type: "UPDATE_SIGNUP_FORM_USERNAME", username });
+};
+export const updateSignupFormSubmitted = status => (
+  dispatch,
+  getState,
+  context
+) => {
+  dispatch({ type: "UPDATE_SIGNUP_FORM_SUBMITTED", status });
+};
+
+export const updateSignupUserCreated = user => (
+  dispatch,
+  getState,
+  context
+) => {
+  dispatch({ type: "UPDATE_SIGNUP_USER_CREATED", user });
+};
+
+export const signupError = message => (dispatch, getState, context) => {
+  dispatch(setError(message));
+  dispatch(setLoading());
+  dispatch(updateSignupFormSubmitted(false));
+  dispatch(updateSignupFormPassword(""));
+  dispatch(updateSignupFormUsername(""));
+  setTimeout(() => {
+    dispatch(setError());
+  }, 2000);
+
 };

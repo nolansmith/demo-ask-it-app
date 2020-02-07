@@ -55,6 +55,7 @@ function DisplayedQuestion(props) {
           >
             {responses.length > 0 ? (
               responses.map((answer, index) => {
+               
                 return (
                   <Response
                     refetch={refetch}

@@ -1,8 +1,16 @@
-const path = require("path");
+
+
+/**
+ * DEVELOPMENT SERVER TO USE WHILE WORKING ON YOUR UI
+ * DOES NOT USE HTTPS
+ */
+
+
+
 const express = require("express");
 const session = require("express-session");
 const app = express();
-const helmet = require("helmet");
+
 const cors = require("cors");
 const compress = require("compression");
 const uuid = require("uuid/v4");
@@ -37,51 +45,23 @@ app.use(
   })
 );
 
-/* some middleware */
-/* header security */
-app.use(helmet());
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'"],
-      styleSrc: ["'self'", "*.googleapis.com", "*.gstatic.com", "'unsafe-inline'"],
-      fontSrc: ["*.googleapis.com", "*.gstatic.com"],
-      imgSrc: ["'self'", 'data:', '*.amazonaws.com'],
-    },
-  }),
-);
-app.use(helmet.referrerPolicy({ policy: 'same-origin' }));
-
 // /* CORS */
-app.use(cors());
+app.use(cors({
+  origin: '*'
+}));
 
-/* compression */
+// /* compression */
 app.use(compress());
 
 app.disable("x-powered-by");
 
-/* our .env file with configuration and env variables */
-
-// if (process.env.DEPLOYMENT_HAS_VARS !== 'yes') {
-//   require('dotenv').config({
-//     path: path.resolve(__dirname, '/.env'),
-//   });
-// }
-
 /* check if we are applying the GraphQL middleware to this server instance */
-if (process.env.IS_ALSO_GRAPHQL && process.env.IS_ALSO_GRAPHQL === "yes") {
-  console.log("[!] Applying GraphQL Middleware...");
-  const graphql = services.graphql.default(utils);
-  graphql.applyMiddleware({ app });
-}
 
-/* directory we are gonna serve our files from */
-const rootDir = path.resolve(__dirname, "../../prod/webapp");
-app.use("/", express.static(rootDir));
+console.log("[DEVELOPMENT] Applying GraphQL Middleware...");
+const graphql = services.graphql.default(utils);
+graphql.applyMiddleware({ app });
 
 const httpPort = process.env.PORT || 3000;
-const httpsPort = process.env.HTTPS || 443;
 
 app.post("/login", async (req, res, next) => {
   //console.log('POST: ', req.body);
@@ -111,33 +91,18 @@ app.post("/login", async (req, res, next) => {
   next();
 });
 
-// app.post("/login", async (req, res, next) => {
-//   res.set("Authorization", `Bearer ${req.session.user.token}`);
-
-//   next();
-// });
-
 app.get("/*", (req, res) => {
   if (req.session.user) {
-    console.log("Authorization: ", req.headers.authorization);
+    //console.log("Authorization: ", req.headers.authorization);
     let { token } = req.session.user;
     let { valid } = auth.checkUserLoginToken(token);
   } else {
     console.log("No Req Session User");
   }
 
-  res.sendFile(`${rootDir}/index.html`);
+  res.send("Development only :-(");
 });
 
 app.listen(httpPort, () =>
-  console.log(`[+] HTTP WebServer started on port ${httpPort}`)
+  console.log(`[DEVELOPMENT] HTTP WebServer started on port ${httpPort}`)
 );
-
-/* listen with https service */
-if (process.env.USING_HTTPS === "yes") {
-  services
-    .https(app)
-    .listen(httpsPort, () =>
-      console.log(`[+] HTTPS WebServer started on port ${httpsPort}`)
-    );
-}

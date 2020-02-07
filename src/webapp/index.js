@@ -40,15 +40,29 @@ let storeOptions = {
 };
 
 import Loading from "./components/loading/index.js";
-const Header = React.lazy(() => import(/* webpackChunkName: "Header" */ './components/primary/Header'));
-const MobileNav = React.lazy(() => import(/* webpackChunkName: "MobileNav" */ './components/primary/MobileNav'));
-const Footer = React.lazy(() => import(/* webpackChunkName: "Footer" */ './components/primary/Footer'));
+const Header = React.lazy(() =>
+  import(/* webpackChunkName: "Header" */ "./components/primary/Header")
+);
+const MobileNav = React.lazy(() =>
+  import(/* webpackChunkName: "MobileNav" */ "./components/primary/MobileNav")
+);
+const Footer = React.lazy(() =>
+  import(/* webpackChunkName: "Footer" */ "./components/primary/Footer")
+);
 const Main = React.lazy(() =>
   import(/* webpackChunkName: "Main" */ "./components/primary/Main.js")
 );
 
+const AppStatusBoundary = React.lazy(() =>
+  import(
+    /* webpackChunkName: "AppStatusBoundary" */ "./components/primary/AppStatusBoundary.js"
+  )
+);
+
 const App = function(props) {
-  return <Router onUpdate={() => window.scrollTo(0,0)}>{props.children}</Router>;
+  return (
+    <Router onUpdate={() => window.scrollTo(0, 0)}>{props.children}</Router>
+  );
 };
 
 render(
@@ -58,8 +72,10 @@ render(
         <React.Suspense fallback={<Loading />}>
           <Header />
           <MobileNav />
-          <Main />
-          <Footer />
+          <AppStatusBoundary>
+            <Main />
+            <Footer />
+          </AppStatusBoundary>
         </React.Suspense>
       </App>
     </Provider>

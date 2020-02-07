@@ -9,7 +9,7 @@ process.env.NODE_ENV = "development";
 
 module.exports = {
   mode: "development",
-  entry: path.resolve(__dirname, "../index.js"),
+  entry: ['@babel/polyfill', path.resolve(__dirname, "../index.js")],
   target: "web",
   devtool: "cheap-module-source-map",
   output: {
