@@ -21,7 +21,8 @@
     "graphql": "cross-env NODE_ENV=development nodemon --exec babel-node --watch ./src/server/services/graphql ./src/server/services/graphql/server.js",
     "server:prod": "cross-env DEPLOYMENT_HAS_VARS=no NODE_ENV=production node ./prod/server/index.js",
     "server:prod:heroku": "cross-env DEPLOYMENT_HAS_VARS=yes NODE_ENV=production node ./prod/server/index.js",
-    "server:dev": "cross-env DEPLOYMENT_HAS_VARS=no NODE_ENV=development nodemon --exec babel-node ./src/server/index.dev.js"
+    "server:dev": "cross-env DEPLOYMENT_HAS_VARS=no NODE_ENV=development nodemon --exec babel-node ./src/server/index.dev.js",
+    "decomp": "nodemon ./src/webapp/shouldDecompose.js"
   },
   "keywords": [],
   "author": "Nolan Smith",

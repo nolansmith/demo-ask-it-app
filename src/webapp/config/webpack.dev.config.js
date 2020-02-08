@@ -19,6 +19,7 @@ module.exports = {
   },
   node: { fs: "empty" },
   devServer: {
+    open: true,
     stats: "minimal",
     overlay: true,
     historyApiFallback: true,

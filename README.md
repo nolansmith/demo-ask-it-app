@@ -25,9 +25,12 @@ There's also quite a few security concerns you'd have to address if you ever too
 `cp .exampleenv .env`
 ### Modify .env File
 - Change the `MYSQL_*` variables to match your database credentials, 
-- Change `HTTP` and `HTTPS` if your permissions don't allow those ports
+- Change `PORT` and `HTTPS` if your permissions don't allow those ports
 - If not using HTTPS make sure to set `USING_HTTPS=no` and `GRAPHQL_PRODUCTION_URL` is prefixed with `http://`
 - Set `JWT_SECRET` to a custom 128 character string to use with JSON Web Tokens (or use the one provided for testing)
+- Set `SERVER_SESSION` to a custom value (or use the one provided for testing)
+- Set `SERVER_SESSION_COOKIE` to a custom value (or use the one provided for testing)
+
 ### Using HTTPS
 - Make sure `USING_HTTPS=yes` is in your `.env` file
 - `GRAPHQL_PRODUCTION_URL` is prefixed with `https://`
@@ -41,19 +44,23 @@ There's also quite a few security concerns you'd have to address if you ever too
 ### Seed Fake Data (optional)
 `npm run seed`
 
+### UnSeed Fake Data (optional)
+`npm run unseed`
+
 ### Undo Database Set Up (remove all data, if you want fresh start)
 `npm run rollback`
 
 ## Deployment
 
-### Local
-- If deploying locally and using .env for config variables, npm server script in `package.json` should be:
-`"server": "cross-env DEPLOYMENT_HAS_VARS=no NODE_ENV=production node ./prod/server/index.js"`
+### Using .env variables
+- If deploying to production using .env for config variables (like on a VM or your machine), npm `server:prod` script in `package.json` should be:
+`"server:prod": "cross-env DEPLOYMENT_HAS_VARS=no NODE_ENV=production node ./prod/server/index.js"`
+- Development mode already uses the .env file
 
-### Remote
-- If deploying remotely and the service will hold the config variables, like mine on Heroku, npm server script in `package.json` should be:
-`"server": "cross-env DEPLOYMENT_HAS_VARS=yes NODE_ENV=production node ./prod/server/index.js"`
-- Note: this project is set up for a deployment to Heroku, you may have to alter "start" and "build" scripts
+### Using deployment variables (like Heroku)
+- If a cloud production environment will maintain process variables, npm `server:prod` script in `package.json` should be:
+`"server:prod": "cross-env DEPLOYMENT_HAS_VARS=yes NODE_ENV=production node ./prod/server/index.js"`
+- Note: this project is set up for a deployment to Heroku, hence the `server:prod:heroku` script, so if using that you won't have to edit anything in `package.json`
 
 ## Starting
 

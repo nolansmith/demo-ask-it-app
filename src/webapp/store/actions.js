@@ -29,6 +29,8 @@ export const loginUser = user => (dispatch, getState, context) => {
   dispatch({ type: "UPDATE_USER", user });
   localStorage.removeItem("_askitapp_user");
   localStorage.setItem("_askitapp_user", JSON.stringify(user));
+  dispatch(updateLoginFormSubmitted(false));
+  dispatch(clearLoginFormValues());
 };
 
 export const logoutUser = () => (dispatch, getState, context) => {
@@ -77,6 +79,10 @@ export const updateLoginFormSubmitted = status => (
 ) => {
   dispatch({ type: "UPDATE_LOGIN_FORM_SUBMITTED", status });
 };
+
+export const clearLoginFormValues = () => (dispatch,getState,context) => {
+  dispatch({type: "CLEAR_LOGIN_FORM"});
+}
 
 export const loginError = message => (dispatch, getState, context) => {
   dispatch(setError(message));

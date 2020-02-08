@@ -151,12 +151,17 @@ export const loginFormReducer = (state = initialState.forms.login, action) => {
       return { ...state, ...action };
     case "UPDATE_LOGIN_FORM_SUBMITTED":
       return { ...state, submitted: action.status };
+    case "CLEAR_LOGIN_FORM":
+      return state;
     default:
       return state;
   }
 };
 
-export const signupFormReducer = (state = initialState.forms.signup, action) => {
+export const signupFormReducer = (
+  state = initialState.forms.signup,
+  action
+) => {
   switch (action.type) {
     case "UPDATE_SIGNUP_FORM_USERNAME":
       return { ...state, ...action };
@@ -165,7 +170,7 @@ export const signupFormReducer = (state = initialState.forms.signup, action) => 
     case "UPDATE_SIGNUP_FORM_SUBMITTED":
       return { ...state, submitted: action.status };
     case "UPDATE_SIGNUP_USER_CREATED":
-      return { ...state, created: {...action.user} };
+      return { ...state, created: { ...action.user } };
     default:
       return state;
   }
@@ -178,7 +183,7 @@ const rootReducer = combineReducers({
   error: errorReducer,
   callbackUrl: callbackUrlReducer,
   loginForm: loginFormReducer,
-  signupForm: signupFormReducer,
+  signupForm: signupFormReducer
 });
 
 export default rootReducer;

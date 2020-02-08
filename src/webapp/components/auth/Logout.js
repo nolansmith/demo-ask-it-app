@@ -1,67 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
-import Message from "../message";
-import { logoutUser } from "../../store/actions.js";
-import { Link } from "react-router-dom";
-import Loading from "../loading";
-import Error from "../error";
+import React from "react";
+import { useSelector } from "react-redux";
+import NotLoggedIn from "./NotLoggedIn";
+import LogoutPrompt from "./LogoutPrompt";
 
 function Logout(props) {
-
-  //loading and errors
-  const NOT_LOADING = { status: false, message: "" };
-  const NO_ERROR = { status: false, message: "" };
-  const [isLoading, setLoad] = useState(NOT_LOADING);
-  const [isError, setError] = useState(NO_ERROR);
   //is logged in variables
-  const [userLoggedIn, handleLoggedIn] = useState(props.user.authenticated);
+  //const [userLoggedIn, handleLoggedIn] = useState(props.user.authenticated);
+  const user = useSelector(state => state.user);
 
-  if (isLoading.status)
-    return (
-      <Loading
-        message={isLoading.message}
-        image="searching"
-        maxHeight="200px"
-      />
-    );
-  if (isError.status)
-    return <Error message={isError.message} maxHeight="200px" />;
+  if (
+    user.authenticated &&
+    JSON.parse(localStorage.getItem("_askitapp_user"))
+  )
+    return <LogoutPrompt />;
 
-  if (userLoggedIn === true) {
-
-    return (
-      <Message image="loggedout" text="Are you sure?">
-        <h4 style={{ textAlign: "center" }}>
-          <Link onClick={(e) => {
-            setLoad({ status: true, message: "Logging Out..." })
-            setTimeout(() => {
-              //handleLoggedIn(false);
-              props.logoutUser();
-              window.location.reload();
-            },2000)
-          }
-          } to="#">Click Here</Link> to Logout
-    </h4>
-      </Message>
-    )
-
-  } else {
-    return (
-      <Message image="notloggedin" text="Not Logged In!">
-        <h4 style={{ textAlign: "center" }}>
-          You can login <Link to="/login">Here</Link>
-        </h4>
-      </Message>
-    );
-  }
+  return <NotLoggedIn />;
 }
 
-const mapStateToProps = state => ({
-  user: state.user
-});
-
-const mapDispatchToProps = dispatch => ({
-  logoutUser: () => dispatch(logoutUser())
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Logout);
+export default Logout;

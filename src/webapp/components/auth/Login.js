@@ -1,9 +1,5 @@
-import React, { useState } from "react";
-
-import Loading from "../loading";
+import React, { useState, useEffect } from "react";
 import Message from "../message";
-import Error from "../error";
-
 //other login components
 import LoginForm from "./LoginForm";
 import LoginAttempt from "./LoginAttempt";
@@ -11,21 +7,14 @@ import LoginSuccess from "./LoginSuccess";
 
 import { useSelector, useDispatch } from "react-redux";
 
-import {updateCallbackUrl} from '../../store/actions';
+import { updateCallbackUrl } from "../../store/actions";
 
 const Login = props => {
   //access our redux functionality
   const { loading, error, user } = useSelector(state => state);
-  const {submitted } = useSelector(state => state.loginForm);
+  const { submitted } = useSelector(state => state.loginForm);
   const dispatch = useDispatch();
-
-
-  if (loading.status === true)
-    return (
-      <Loading message={loading.message} image="searching" maxHeight="200px" />
-    );
-
-  if (error.status === true) return <Error message={error.message} maxHeight="200px" />;
+  
 
   if (user.authenticated === true)
     return (
@@ -37,10 +26,10 @@ const Login = props => {
     );
 
   if (submitted === true) {
-    return <LoginAttempt  />;
+    return <LoginAttempt />;
   }
 
-  return <LoginForm  />;
+  return <LoginForm />;
 };
 
 export default Login;

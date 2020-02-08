@@ -1,11 +1,12 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setLoading,
   setError,
   loginError,
   loginUser,
-  updateLoginFormSubmitted
+  updateLoginFormSubmitted,
+  clearLoginFormValues
 } from "../../store/actions";
 import axios from "axios";
 import client from "../../config/apollo/index";
@@ -15,6 +16,9 @@ const LoginAttempt = props => {
   const { username, password, submitted } = useSelector(
     state => state.loginForm
   );
+
+
+
   const dispatch = useDispatch();
 
   dispatch(setLoading("Authenticating"));
@@ -64,6 +68,7 @@ const LoginAttempt = props => {
     };
 
     dispatch(loginUser(userToPutIntoState));
+   
 
     dispatch(setLoading());
   }, 2000);

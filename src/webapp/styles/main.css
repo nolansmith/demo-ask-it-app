@@ -8,6 +8,7 @@ html,
       font-family: "Stylish", sans-serif !important;
     }
 
+    
     .fa-disabled {
       opacity: 0.6;
       cursor: not-allowed;
@@ -113,4 +114,17 @@ html,
 
       font-family: "Stylish", sans-serif !important;
       font-size: 22px;
+    }
+
+    .nav-link {
+      transition: all 0.5s ease-in-out ;
+    }
+
+    @media screen and (max-width: 767px) {
+      .logged-in {
+        border-radius: 0;
+      }
+      .logged-out {
+        border-radius: 0;
+      }
     }
