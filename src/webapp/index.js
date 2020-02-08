@@ -43,9 +43,7 @@ import Loading from "./components/loading/index.js";
 const Header = React.lazy(() =>
   import(/* webpackChunkName: "Header" */ "./components/primary/Header")
 );
-const MobileNav = React.lazy(() =>
-  import(/* webpackChunkName: "MobileNav" */ "./components/primary/MobileNav")
-);
+
 const Footer = React.lazy(() =>
   import(/* webpackChunkName: "Footer" */ "./components/primary/Footer")
 );
@@ -59,9 +57,11 @@ const AppStatusBoundary = React.lazy(() =>
   )
 );
 
+import ScrollToTop from './components/routes/ScrollToTop';
+
 const App = function(props) {
   return (
-    <Router onUpdate={() => window.scrollTo(0, 0)}>{props.children}</Router>
+    <Router><ScrollToTop />{props.children}</Router>
   );
 };
 
@@ -71,7 +71,7 @@ render(
       <App>
         <React.Suspense fallback={<Loading />}>
           <Header />
-          <MobileNav />
+         
           <AppStatusBoundary>
             <Main />
             <Footer />

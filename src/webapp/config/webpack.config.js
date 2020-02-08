@@ -33,10 +33,6 @@ module.exports = {
       {
         from: path.resolve(__dirname, "../styles"),
         to: "styles"
-      },
-      {
-        from: path.resolve(__dirname, "../fonts"),
-        to: "fonts"
       }
     ]),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),

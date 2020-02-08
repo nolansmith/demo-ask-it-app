@@ -21,7 +21,7 @@ const LoginAttempt = props => {
 
   setTimeout(async () => {
     let loginRequest;
-    let loginURL = process.env.NODE_ENV === 'production' ? '/login' : process.env.SERVER_DEVELOPMENT_URL + 'login';
+    let loginURL = process.env.NODE_ENV === 'production' ? '/login' : process.env.SERVER_DEVELOPMENT_URL + '/login';
 
     try {
       loginRequest = await axios.post(loginURL, {
