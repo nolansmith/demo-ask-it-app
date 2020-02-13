@@ -24,6 +24,9 @@ import apolloClient from "./config/apollo/index.js";
 import { Provider } from "react-redux";
 import store from "./store/index.js";
 
+//a wrapper component for authentication
+import LoginValidator from "./components/validator";
+
 // use the block below to remove lazy-load
 // import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 // import "../../node_modules/jquery/dist/jquery.min.js";
@@ -57,11 +60,14 @@ const AppStatusBoundary = React.lazy(() =>
   )
 );
 
-import ScrollToTop from './components/routes/ScrollToTop';
+import ScrollToTop from "./components/routes/ScrollToTop";
 
 const App = function(props) {
   return (
-    <Router><ScrollToTop />{props.children}</Router>
+    <Router>
+      <ScrollToTop />
+      {props.children}
+    </Router>
   );
 };
 
@@ -69,14 +75,15 @@ render(
   <ApolloProvider client={apolloClient}>
     <Provider store={store(storeOptions)}>
       <App>
-        <React.Suspense fallback={<Loading />}>
-          <Header />
-         
-          <AppStatusBoundary>
-            <Main />
-            <Footer />
-          </AppStatusBoundary>
-        </React.Suspense>
+        <LoginValidator>
+          <React.Suspense fallback={<Loading />}>
+            <Header />
+            <AppStatusBoundary>
+              <Main />
+              <Footer />
+            </AppStatusBoundary>
+          </React.Suspense>
+        </LoginValidator>
       </App>
     </Provider>
   </ApolloProvider>,

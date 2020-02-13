@@ -20,7 +20,9 @@ export default {
     answers: [],
     votes: null,
     id: null,
-    hasBeenLoggedOut: false
+    hasBeenLoggedOut: false,
+    expiredToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5vbGFuIiwic2FsdCI6IjY3ODA4MWU5LWVhYzctNDk1NS04ZjU3LTkyMzZjNDhmMGQ2ZSIsInRpbWUiOiIyLzEzLzIwMjAiLCJpYXQiOjE1ODE2MTc5MTksImV4cCI6MTU4MTYxNzkzNH0.FumDTeR1z6Qo6cnQYUvdpoI3TgT7fs_8wSJ9k6O6wss',
+    blacklistedToken: ''
   },
   callbackUrl: null,
   forms: {

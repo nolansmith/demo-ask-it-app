@@ -11,12 +11,8 @@ export default function LogoutPrompt() {
       <h4 style={{ textAlign: "center" }}>
         <Link
           onClick={e => {
-            dispatch(setLoading("Logging Out..."));
-            setTimeout(() => {
-              dispatch(logoutUser());
-              dispatch(setLoading());
-              //window.location.reload();
-            }, 2000);
+            
+            dispatch(logoutUser());
           }}
           to="#"
         >

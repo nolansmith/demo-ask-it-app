@@ -7,8 +7,17 @@ Full Stack Q/A React app using Sequelize, GraphQL, and Node.
 It is basic in nature but demonstrates some key components you might want in a starter app when getting into the JS game. 
 It can get exhausting looking at a bunch of todo mvc apps so clone this for something far more stressful and confusing.
 
+## Stack Rundown
+- UI: React/React Redux, Apollo
+- Server: Express
+- DB: MySQL
+- ORM: Sequelize
+- Authentication: JWT Tokens (1d default)
+- Encryption: bcrypt
+- Data API: GraphQL
+
 ## Disclaimer
-* Almost nothing in this project is industry standard or best practices. 
+* No guarantees this project is industry standard or best practices. 
 There's a lot of inconsistency in the code and a bunch of anti-patterns that are likely frowned upon. 
 But I just wanted a working project where the front talks to the back and the back does stuff and sends it to the front. 
 There's also quite a few security concerns you'd have to address if you ever took this live.
@@ -84,7 +93,4 @@ There's also quite a few security concerns you'd have to address if you ever too
 ### Search
 * Users
 * Questions
-### Security
-* Server-side session information vs localStorage
-* Https
-* DB encryption
+

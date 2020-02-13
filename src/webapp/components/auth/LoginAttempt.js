@@ -59,12 +59,14 @@ const LoginAttempt = props => {
       answers,
       questions
     } = authedUserData.data.findUserByUsername;
+    
     let userActivities = Object.assign({}, { id, votes, answers, questions });
     //trigger the prop change after logging in
     let userToPutIntoState = {
       ...authedUser,
       ...userActivities,
-      authenticated: true
+      authenticated: true,
+      duration: 0
     };
 
     dispatch(loginUser(userToPutIntoState));

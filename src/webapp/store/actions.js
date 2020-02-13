@@ -33,17 +33,28 @@ export const loginUser = user => (dispatch, getState, context) => {
   dispatch(clearLoginFormValues());
 };
 
+export const updateLoggedInDuration = () => (dispatch, getState, context) => {
+  let {duration} = getState().user;
+  dispatch({ type: "UPDATE_USER", user: {duration: (duration+2)} });
+  
+};
+
+
 export const logoutUser = () => (dispatch, getState, context) => {
   if (localStorage.getItem("_askitapp_user")) {
     //console.log("Removing credentials");
     localStorage.removeItem("_askitapp_user");
   }
-
+  dispatch(setLoading("Logging out..."));
+  setTimeout(() => {
+    dispatch(setLoading());
+  }, 2000);
   dispatch({
     type: "UPDATE_USER",
     user: Object.assign({}, initialState.user, { hasBeenLoggedOut: true })
   });
 };
+
 
 export const updateCallbackUrl = (url = null) => (
   dispatch,

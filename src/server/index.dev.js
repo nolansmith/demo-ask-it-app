@@ -91,6 +91,11 @@ app.post("/login", async (req, res, next) => {
   next();
 });
 
+app.get('/token/:token', (req,res,next) => {
+  res.json(auth.checkUserLoginToken(req.params.token));
+ 
+})
+
 app.get("/*", (req, res) => {
   if (req.session.user) {
     //console.log("Authorization: ", req.headers.authorization);

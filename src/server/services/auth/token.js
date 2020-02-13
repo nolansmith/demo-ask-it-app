@@ -2,7 +2,7 @@ module.exports = utils => {
   let { jwt } = utils;
 
   const createUserLoginToken = data => {
-    let token = jwt.sign(data, process.env.JWT_SECRET, { expiresIn: "10m" });
+    let token = jwt.sign(data, process.env.JWT_SECRET, { expiresIn: "1h" });
     return token;
   };
 

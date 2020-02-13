@@ -1,4 +1,5 @@
 import React from "react";
+import {NavLink as Link} from 'react-router-dom';
 import Username from "./Username";
 import Password from "./Password";
 import Submit from "./Submit";
@@ -17,6 +18,9 @@ function SignUpForm(props) {
       <Username />
       <Password />
       <Submit />
+      <h6 style={{ width: "100%", textAlign: "center", margin: "0 auto" }}>
+        Already a member? <Link to="/login">Log In</Link>
+      </h6>
     </Form>
   );
 }

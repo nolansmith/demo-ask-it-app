@@ -111,11 +111,12 @@ app.post("/login", async (req, res, next) => {
   next();
 });
 
-// app.post("/login", async (req, res, next) => {
-//   res.set("Authorization", `Bearer ${req.session.user.token}`);
 
-//   next();
-// });
+app.get('/token/:token', (req,res,next) => {
+  res.json(auth.checkUserLoginToken(req.params.token));
+ 
+});
+
 
 app.get("/*", (req, res) => {
   if (req.session.user) {
