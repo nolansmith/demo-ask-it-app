@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Message from "../message";
 //other login components
-import LoginForm from "./LoginForm";
+import LoginForm from "./form/index.js";
 import LoginAttempt from "./LoginAttempt";
 import LoginSuccess from "./LoginSuccess";
 

@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 import UserSignupAttempt from "./UserSignupAttempt";
 import UserCreatedSuccess from "./UserCreatedSucess";
-import UserSignupForm from "./UserSignupForm";
+import UserSignupForm from "./form/index";
 
 const SignUp = props => {
   const { submitted, created } = useSelector(state => state.signupForm);

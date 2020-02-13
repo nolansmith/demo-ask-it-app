@@ -27,13 +27,23 @@ export default {
     login: {
       username: "",
       password: "",
-      submitted: false
+      submitted: false,
+      options: {
+        image: "login",
+        header: "Login!",
+        subHeader: "(With your OWN info)"
+      }
     },
     signup: {
       username: "",
       password: "",
       submitted: false,
-      created: false
+      created: false,
+      options: {
+        image: "signup",
+        header: "Sign Up!",
+        subHeader: "(To get involved)"
+      }
     }
   }
 };
