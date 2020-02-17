@@ -176,6 +176,21 @@ export const signupFormReducer = (
   }
 };
 
+export const askFormReducer = (state = initialState.forms.ask, action) => {
+  switch (action.type) {
+    case "UPDATE_ASK_FORM_QUESTION":
+      return { ...state, ...action };
+    case "UPDATE_ASK_FORM_SUBMITTED":
+      return { ...state, submitted: action.status };
+    case "UPDATE_ASK_QUESTION_CREATED":
+      return { ...state, created: { ...action.question } };
+    case "RESET_ASK_QUESTION_FORM":
+      return initialState.forms.ask;
+    default:
+      return state;
+  }
+};
+
 const rootReducer = combineReducers({
   questions: questionsReducer,
   user: userReducer,
@@ -183,7 +198,8 @@ const rootReducer = combineReducers({
   error: errorReducer,
   callbackUrl: callbackUrlReducer,
   loginForm: loginFormReducer,
-  signupForm: signupFormReducer
+  signupForm: signupFormReducer,
+  askForm: askFormReducer
 });
 
 export default rootReducer;

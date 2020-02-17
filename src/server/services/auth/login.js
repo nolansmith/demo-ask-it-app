@@ -1,6 +1,5 @@
 module.exports = tools => {
-  
-  let {bcrypt,db} = tools;
+  let { bcrypt, db } = tools;
   let { User } = db.models;
 
   const findUser = async username => {
@@ -16,14 +15,18 @@ module.exports = tools => {
   };
 
   const tryToLogUserIn = async user => {
-    let validUser = await findUser(user.username);
-    if (!validUser) return { loginError: "Invalid Username" };
-    let validPassword = await verifyUserPassword({
-      value: user.password,
-      against: validUser.password
-    });
-    if (!validPassword) return { loginError: "Invalid password" };
-    return { user: { ...validUser.dataValues } };
+    try {
+      let validUser = await findUser(user.username);
+      if (!validUser) return { loginError: "Invalid Username" };
+      let validPassword = await verifyUserPassword({
+        value: user.password,
+        against: validUser.password
+      });
+      if (!validPassword) return { loginError: "Invalid password" };
+      return { user: { ...validUser.dataValues } };
+    } catch (error) {
+      return {loginError: 'Database Error'}
+    }
   };
 
   return { findUser, verifyUserPassword, tryToLogUserIn };

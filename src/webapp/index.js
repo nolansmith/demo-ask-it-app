@@ -33,14 +33,6 @@ import LoginValidator from "./components/validator";
 // import "../../node_modules/popper.js/dist/popper.min.js";
 // import "../../node_modules/bootstrap/dist/js/bootstrap.min.js";
 
-//store options
-let storeOptions = {
-  thunk: {
-    arguments: {
-      client: apolloClient
-    }
-  }
-};
 
 import Loading from "./components/loading/index.js";
 const Header = React.lazy(() =>
@@ -72,8 +64,8 @@ const App = function(props) {
 };
 
 render(
-  <ApolloProvider client={apolloClient}>
-    <Provider store={store(storeOptions)}>
+  <Provider store={store}>
+    <ApolloProvider client={apolloClient}>
       <App>
         <LoginValidator>
           <React.Suspense fallback={<Loading />}>
@@ -85,7 +77,7 @@ render(
           </React.Suspense>
         </LoginValidator>
       </App>
-    </Provider>
-  </ApolloProvider>,
+    </ApolloProvider>
+  </Provider>,
   document.getElementById("root")
 );

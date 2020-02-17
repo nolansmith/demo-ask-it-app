@@ -1,62 +1,33 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
-import URLS from "../../util/urls.js";
-import AskQuestionBar from "./AskQuestionBar";
-import Login from "../auth/Login.js";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink as Link } from "react-router-dom";
 import { updateCallbackUrl } from "../../store/actions";
-import {NavLink as Link} from 'react-router-dom';
+import AskQuestion from "./AskQuestion";
+import AskQuestionSuccess from "./AskQuestionSuccess";
+import AskQuestionAttempt from "./AskQuestionAttempt";
 
-function AskQuestion(props) {
-  const [submitted, setSubmitted] = useState(false);
+function AskQuestionIndex(props) {
+  const dispatch = useDispatch();
+  const { user, askForm } = useSelector(state => state);
 
-  
+  if (!user.authenticated)
+    return (
+      <h4 style={{ textAlign: "center" }}>
+        <Link
+          onClick={() => dispatch(updateCallbackUrl(window.location.pathname))}
+          to="/login"
+        >
+          Login
+        </Link>{" "}
+        to ask a question
+      </h4>
+    );
 
-  return !props.user.authenticated ? (
-    <h4 style={{ textAlign: "center" }}>
-      <Link onClick={props.updateCallbackUrl} to="/login">
-        Login
-      </Link>{" "}
-      to ask a question
-    </h4>
-  ) : (
-    <div style={{ margin: "20px auto", width: "100%" }} id="ask_question_area">
-      <div
-        className="row"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          width: "100%",
-          margin: "0 auto"
-        }}
-      >
-        <div className="col-md-4 col-md-push-2  col-sm-12">
-          <img
-            style={{ width: "100%", maxHeight: "250px" }}
-            src={`${URLS.images}/ask_question.svg`}
-          />
-        </div>
-        <div className="col-md-4 col-md-pull-2 col-sm-12">
-          <h2 style={{ margin: "10% auto", textAlign: "left" }}>
-            Ask Anything!
-          </h2>
-        </div>
-      </div>
-      <AskQuestionBar setSubmitted={setSubmitted} submitted={submitted} />
-    </div>
-  );
+  if (askForm.submitted && askForm.created) return <AskQuestionSuccess />;
+
+  if (askForm.submitted) return <AskQuestionAttempt />;
+
+  return <AskQuestion />;
 }
 
-const mapStateToProps = state => {
-  return {
-    ...state
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    updateCallbackUrl: dispatch(updateCallbackUrl(window.location.pathname))
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(AskQuestion);
+export default AskQuestionIndex;

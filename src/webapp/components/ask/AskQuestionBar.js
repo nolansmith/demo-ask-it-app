@@ -1,18 +1,20 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { NavLink as Link } from "react-router-dom";
-import { useMutation } from "@apollo/react-hooks";
 import * as mutations from "../../store/graphql/mutations.js";
-import { getRandomUserFromSeedData } from "../../util/index";
-import Error from "../error/index.js";
+import client from '../../config/apollo/index';
+import { setError, setLoading } from "../../store/actions.js";
+import Form from '../forms/index';
 
 function AskQuestionBar(props) {
-  const [myQuestion, setQuestion] = useState("");
-  const [valid, setValid] = useState(false);
-  const [submitted, setSubmitted] = useState({ status: false });
-  const [askQuestion, { data }] = useMutation(mutations.ASK_QUESTION);
-  const user = useSelector(state => state.user);
-  let stubUser = getRandomUserFromSeedData();
+  // const [myQuestion, setQuestion] = useState("");
+  // const [valid, setValid] = useState(false);
+  // const [submitted, setSubmitted] = useState({ status: false });
+  //const [askQuestion, { data,error }] = useMutation(mutations.ASK_QUESTION);
+  const {user, askForm} = useSelector(state => state);
+
+  const dispatch = useDispatch();
+  
 
   function checkValid(question) {
     if (question.length >= 10) {
@@ -31,18 +33,29 @@ function AskQuestionBar(props) {
       createdAt: new Date(),
       updatedAt: new Date()
     };
-    //console.log(stubUser.username, ' submitted question...');
-    askQuestion({
+
+    dispatch(setLoading("Asking question..."));
+
+    client.mutate({
+      mutation: mutations.ASK_QUESTION,
       variables: {
         question
       }
-    }).then(({ data }) => {
-      if (data.askQuestion) {
-        setSubmitted({ status: true, id: data.askQuestion.id });
+    }).then(({data}) => {
+      if (data) {
+        console.log('Question submitted ', data);
+        setTimeout(() => {
+          setSubmitted({ status: true, id: data.askQuestion.id });
+          dispatch(setLoading());
+        },2000)
+        //
       } else {
-        return <Error message="Server Error" />;
+        dispatch(setError("Server error..."));
+        setTimeout(dispatch(setError()), 2000);
       }
-    });
+
+    })
+
   }
 
   return (

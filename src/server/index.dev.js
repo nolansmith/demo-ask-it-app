@@ -71,6 +71,7 @@ app.post("/login", async (req, res, next) => {
   let { username, password } = req.body;
   let { loginError, user } = await auth.tryToLogUserIn({ username, password });
   if (loginError) return res.json({ loginError });
+  
   req.session.user = { username };
   req.session.salt = uuid();
   //console.log("Salt created: ", req.session.salt);

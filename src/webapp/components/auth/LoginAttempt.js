@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setLoading,
@@ -17,15 +17,16 @@ const LoginAttempt = props => {
     state => state.loginForm
   );
 
-
-
   const dispatch = useDispatch();
 
   dispatch(setLoading("Authenticating"));
 
   setTimeout(async () => {
     let loginRequest;
-    let loginURL = process.env.NODE_ENV === 'production' ? '/login' : process.env.SERVER_DEVELOPMENT_URL + '/login';
+    let loginURL =
+      process.env.NODE_ENV === "production"
+        ? "/login"
+        : process.env.SERVER_DEVELOPMENT_URL + "/login";
 
     try {
       loginRequest = await axios.post(loginURL, {
@@ -34,7 +35,7 @@ const LoginAttempt = props => {
       });
     } catch (ex) {
       dispatch(loginError("Error connecting to server"));
-      
+
       return null;
     }
 
@@ -52,6 +53,7 @@ const LoginAttempt = props => {
       query: FIND_USER,
       variables: { username: username }
     });
+ 
     //add the users activities into an object
     let {
       id,
@@ -59,7 +61,7 @@ const LoginAttempt = props => {
       answers,
       questions
     } = authedUserData.data.findUserByUsername;
-    
+
     let userActivities = Object.assign({}, { id, votes, answers, questions });
     //trigger the prop change after logging in
     let userToPutIntoState = {
@@ -70,7 +72,6 @@ const LoginAttempt = props => {
     };
 
     dispatch(loginUser(userToPutIntoState));
-   
 
     dispatch(setLoading());
   }, 2000);

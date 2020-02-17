@@ -61,13 +61,6 @@ app.use(compress());
 
 app.disable("x-powered-by");
 
-/* our .env file with configuration and env variables */
-
-// if (process.env.DEPLOYMENT_HAS_VARS !== 'yes') {
-//   require('dotenv').config({
-//     path: path.resolve(__dirname, '/.env'),
-//   });
-// }
 
 /* check if we are applying the GraphQL middleware to this server instance */
 if (process.env.IS_ALSO_GRAPHQL && process.env.IS_ALSO_GRAPHQL === "yes") {
@@ -124,7 +117,7 @@ app.get("/*", (req, res) => {
     let { token } = req.session.user;
     let { valid } = auth.checkUserLoginToken(token);
   } else {
-    console.log("No Req Session User");
+    console.log("TODO: server-side sessions");
   }
 
   res.sendFile(`${rootDir}/index.html`);

@@ -5,6 +5,8 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 import { HttpLink } from "apollo-link-http";
 import { onError } from "apollo-link-error";
 import { ApolloLink } from "apollo-link";
+import store from '../../store/index';
+import {setGraphQLError} from '../../store/graphql/actions';
 
 //authorization link to send a bearer token to authenticate GQL requests
 const AuthLink = (operation, next) => {
@@ -39,13 +41,19 @@ const client = new ApolloClient({
       /**
        * uncomment below to log errors
        */
-      // if (graphQLErrors)
-      //   graphQLErrors.forEach(({ message, locations, path }) =>
-      //     console.log(
-      //       `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-      //     )
-      //   );
-      // if (networkError) console.log(`[Network error]: ${networkError}`);
+      let gqlErrors = 0;
+      if (graphQLErrors)
+        graphQLErrors.forEach(({ message, locations, path }) => {
+          gqlErrors++;
+          if (gqlErrors <= 1) {
+            store.dispatch(setGraphQLError(message));
+          }
+
+        }
+          
+
+        );
+      if (networkError) console.log(`[Network error]: ${networkError}`);
     }),
     AuthLink,
     new HttpLink({

@@ -45,10 +45,7 @@ export const logoutUser = () => (dispatch, getState, context) => {
     //console.log("Removing credentials");
     localStorage.removeItem("_askitapp_user");
   }
-  dispatch(setLoading("Logging out..."));
-  setTimeout(() => {
-    dispatch(setLoading());
-  }, 2000);
+ 
   dispatch({
     type: "UPDATE_USER",
     user: Object.assign({}, initialState.user, { hasBeenLoggedOut: true })
@@ -148,4 +145,36 @@ export const signupError = message => (dispatch, getState, context) => {
     dispatch(setError());
   }, 2000);
 
+};
+
+export const updateAskFormQuestion = question => (
+  dispatch,
+  getState,
+  context
+) => {
+  dispatch({ type: "UPDATE_ASK_FORM_QUESTION", question });
+};
+
+export const updateAskFormSubmitted = status => (
+  dispatch,
+  getState,
+  context
+) => {
+  dispatch({ type: "UPDATE_ASK_FORM_SUBMITTED", status });
+};
+
+export const updateAskFormQuestionCreated = question => (
+  dispatch,
+  getState,
+  context
+) => {
+  dispatch({ type: "UPDATE_ASK_QUESTION_CREATED", question });
+};
+
+export const resetAskForm = () => (
+  dispatch,
+  getState,
+  context
+) => {
+  dispatch({ type: "RESET_ASK_QUESTION_FORM"});
 };

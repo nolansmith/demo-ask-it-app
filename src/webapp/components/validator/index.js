@@ -13,6 +13,8 @@ export default function Validator(props) {
 
   useEffect(() => {
     async function checkTokenStatus() {
+      let lsUser = localStorage.getItem("_askitapp_user");
+    
       if (user.authenticated) {
         let { valid } = await verifyUserLogin(user);
 
