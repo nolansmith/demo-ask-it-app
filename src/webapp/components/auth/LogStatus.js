@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { NavLink as Link } from "react-router-dom";
-import { logoutUser } from "../../store/actions";
+import { logoutUser } from "./store/actions";
 
 function LogStatus(props) {
   return (

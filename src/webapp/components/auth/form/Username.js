@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateLoginFormUsername } from "../../../store/actions";
+import { updateLoginFormUsername } from "../store/actions";
 import { FaUser as UserIcon } from "react-icons/fa";
 export default function Username() {
   const { username } = useSelector(state => state.loginForm);

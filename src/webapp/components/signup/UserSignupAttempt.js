@@ -9,7 +9,7 @@ import {
   updateSignupFormSubmitted,
   setLoading,
   setError
-} from "../../store/actions.js";
+} from "./store/actions.js";
 import client from "../../config/apollo/index";
 
 export default function UserSignupAttempt(props) {

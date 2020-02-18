@@ -8,7 +8,7 @@ import {
   updateAskFormQuestionCreated,
   updateAskFormSubmitted,
   resetAskForm
-} from "../../store/actions";
+} from "./store/actions";
 
 export default function AskQuestion(props) {
   const { askForm, user } = useSelector(state => state);

@@ -5,9 +5,8 @@ import {
   setError,
   loginError,
   loginUser,
-  updateLoginFormSubmitted,
-  clearLoginFormValues
-} from "../../store/actions";
+  
+} from "./store/actions";
 import axios from "axios";
 import client from "../../config/apollo/index";
 import { FIND_USER } from "../../store/graphql/queries";

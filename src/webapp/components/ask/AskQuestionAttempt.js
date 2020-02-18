@@ -7,7 +7,7 @@ import {
   resetAskForm,
   setError,
   setLoading
-} from "../../store/actions";
+} from "./store/actions";
 
 export default function AskQuestionAttempt(props) {
   const { askForm, user } = useSelector(state => state);

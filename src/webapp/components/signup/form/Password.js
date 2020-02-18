@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateSignupFormPassword } from "../../../store/actions";
+import { updateSignupFormPassword } from "../store/actions";
 import { FaAsterisk as PasswordIcon } from "react-icons/fa";
 export default function Password() {
   

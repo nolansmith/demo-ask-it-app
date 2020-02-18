@@ -72,7 +72,7 @@ export default function Routes(props) {
         <Route path="/user/:slug" component={User} />
         <Route path="/login" component={Login} />
         <Route path="/logout" component={Logout} />
-        <Route path="/signup" component={SignUp} />
+        <Route path="/signup" component={user.authenticated ? Dashboard : SignUp} />
         <Route component={FoF} />
       </Switch>
     </ErrorBoundary>

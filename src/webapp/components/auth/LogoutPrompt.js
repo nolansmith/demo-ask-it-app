@@ -1,6 +1,6 @@
 import React from "react";
 import Message from "../message";
-import { logoutUser, setLoading } from "../../store/actions.js";
+import { logoutUser, setLoading } from "./store/actions.js";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { updateAskFormQuestion } from "../../store/actions";
+import { updateAskFormQuestion } from "./store/actions";
 import {useDispatch} from 'react-redux';
 
 export default function QuestionText(props) {

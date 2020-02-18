@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { FaCaretUp as UpVote, FaCaretDown as DownVote } from "react-icons/fa";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ADD_VOTE } from "../../store/graphql/mutations";
 import { FIND_USER } from "../../store/graphql/queries";
-import { loginUser, setLoading } from "../../store/actions";
 import { useMutation, useQuery } from "@apollo/react-hooks";
-import { calculateVotes, getRandomUserFromSeedData } from "../../util/index";
+import { calculateVotes,  } from "../../util/index";
 import { NavLink as Link } from "react-router-dom";
-import Loading from "../loading";
-import Error from "../error";
+import {loginUser} from '../auth/store/actions';
+
 
 function Response(props) {
   /** redux hooks */

@@ -7,7 +7,7 @@ import LoginSuccess from "./LoginSuccess";
 
 import { useSelector, useDispatch } from "react-redux";
 
-import { updateCallbackUrl } from "../../store/actions";
+import { updateCallbackUrl } from "./store/actions";
 
 const Login = props => {
   //access our redux functionality

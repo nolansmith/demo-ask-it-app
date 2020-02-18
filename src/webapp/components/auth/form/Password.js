@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateLoginFormPassword } from "../../../store/actions";
+import { updateLoginFormPassword } from "../store/actions";
 import { FaAsterisk as PasswordIcon } from "react-icons/fa";
 export default function Password() {
   const { password } = useSelector(state => state.loginForm);

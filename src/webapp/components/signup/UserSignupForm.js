@@ -4,7 +4,7 @@ import {
   updateSignupFormPassword,
   updateSignupFormSubmitted,
   updateSignupFormUsername
-} from "../../store/actions.js";
+} from "./store/actions.js";
 
 import { FaAsterisk as Password, FaUser as User } from "react-icons/fa";
 import * as URLS from "../../util/urls";

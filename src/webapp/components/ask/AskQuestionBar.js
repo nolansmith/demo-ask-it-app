@@ -3,15 +3,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { NavLink as Link } from "react-router-dom";
 import * as mutations from "../../store/graphql/mutations.js";
 import client from '../../config/apollo/index';
-import { setError, setLoading } from "../../store/actions.js";
-import Form from '../forms/index';
+import { setError, setLoading } from "./store/actions.js";
+
 
 function AskQuestionBar(props) {
-  // const [myQuestion, setQuestion] = useState("");
-  // const [valid, setValid] = useState(false);
-  // const [submitted, setSubmitted] = useState({ status: false });
-  //const [askQuestion, { data,error }] = useMutation(mutations.ASK_QUESTION);
-  const {user, askForm} = useSelector(state => state);
+
 
   const dispatch = useDispatch();
   

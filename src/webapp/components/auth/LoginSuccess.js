@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {updateCallbackUrl} from '../../store/actions';
+import {updateCallbackUrl} from './store/actions';
 import {NavLink as Link} from 'react-router-dom';
 
 

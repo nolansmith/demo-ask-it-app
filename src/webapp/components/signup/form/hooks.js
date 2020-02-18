@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { updateSignupFormSubmitted } from "../../../store/actions";
+import { updateSignupFormSubmitted } from "../store/actions";
 
 export const useSubmit = function() {
   const { submitted } = useSelector(state => state.loginForm);

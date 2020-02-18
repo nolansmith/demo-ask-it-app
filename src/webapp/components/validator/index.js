@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { verifyUserLogin } from "./functions.js";
-import { setLoading, setError, logoutUser } from "../../store/actions";
+import {  logoutUser } from "../auth/store/actions";
 
 export default function Validator(props) {
   const { user } = useSelector(state => state);
