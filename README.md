@@ -32,6 +32,11 @@ There's also quite a few security concerns you'd have to address if you ever too
 `cd ask-it && npm install`
 ### Copy .exampleenv to .env
 `cp .exampleenv .env`
+
+### QuickStart (If not customizing anything)
+- Once you are at this step, just edit your `MYSQL_*` variables in `.env` and run `npm run migrate && npm run seed && npm run start:dev`
+- This will give you a live project in dev mode with seeded data
+
 ### Modify .env File
 - Change the `MYSQL_*` variables to match your database credentials, 
 - Change `PORT` and `HTTPS` if your permissions don't allow those ports
@@ -39,6 +44,8 @@ There's also quite a few security concerns you'd have to address if you ever too
 - Set `JWT_SECRET` to a custom 128 character string to use with JSON Web Tokens (or use the one provided for testing)
 - Set `SERVER_SESSION` to a custom value (or use the one provided for testing)
 - Set `SERVER_SESSION_COOKIE` to a custom value (or use the one provided for testing)
+
+
 
 ### Using HTTPS
 - Make sure `USING_HTTPS=yes` is in your `.env` file
